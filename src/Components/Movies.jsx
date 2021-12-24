@@ -38,15 +38,21 @@ export default class Movies extends Component {
     this.setState({
       parr:[...tempArr],
       currPage:this.state.currPage+1
-    })
-    this.changeMovies();
+    },this.changeMovies)
+    
+  }
+  handLeft=()=>{
+    if(this.state.currPage !='1'){
+      this.setState({
+        currPage:this.state.currPage-1
+      },this.changeMovies)
+    }
   }
   handlePage=(e)=>{
-    let no = e
     this.setState({
-      currPage:no
-    })
-    this.changeMovies();
+      currPage:e
+    },this.changeMovies)
+    
   }
   render() {
     console.log("in the render");
@@ -83,12 +89,12 @@ export default class Movies extends Component {
 
              <nav aria-label="...">
  <ul className="pagination">
-   <li className="page-item disabled">
-     <a className="page-link">Previous</a>
+   <li className="page-item ">
+     <a className="page-link" onClick={this.handLeft}>Previous</a>
    </li>
    {
      this.state.parr.map((value)=>(
-      <li className="page-item " onClick={()=>{this.handlePage(value)}}><a class="page-link" href="#">{value}</a></li>
+      <li className="page-item " onClick={()=>{this.handlePage(value)}}><a class="page-link" >{value}</a></li>
      
      ))
    }
