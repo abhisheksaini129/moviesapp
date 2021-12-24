@@ -4,10 +4,10 @@ export default class Baaner extends Component {
     render() {
       let movie= movies.results[1];
       // let movie=''
-      console.log(movie);
+      // console.log(movie);
         return (
           <>
-          { movie ==''?
+          { movie ===''?
                 //////////////loader if movies not fetched////
             <div className="d-flex align-items-center">
             <strong>Loading...</strong>
