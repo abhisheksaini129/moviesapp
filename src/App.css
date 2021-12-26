@@ -85,3 +85,9 @@
   .button-area >*{
     margin-right: 10px;
   }
+  .favourites-genres{
+    padding: 3rem;
+  }
+  .favourites-table{
+    padding: 3rem;
+  }

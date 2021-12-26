@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 // import { movies } from './GetMovies'
 import axios from 'axios';
-
+import Baaner from './Baaner';
 export default class Movies extends Component {
   constructor(){
     super();
@@ -9,7 +9,8 @@ export default class Movies extends Component {
     this.state={
       movies:[],
       parr:[1],
-      currPage:1
+      currPage:1,
+      favourites:[]
     }
   }
   async componentDidMount(){
@@ -54,11 +55,22 @@ export default class Movies extends Component {
     },this.changeMovies)
     
   }
+  handleFavourite=(movie)=>{
+    let oldData = JSON.parse(localStorage.getItem('movies-app') ||'[]');
+      if(this.state.favourites.includes(movie.id)){
+        oldData=oldData.filter((m)=>m.id!=movie.id);
+      }else{
+        oldData.push(movie);
+      }
+      localStorage.setItem('movies-app',JSON.stringify(oldData))
+      console.log(oldData);
+  }
   render() {
     console.log("in the render");
     // let movie=this.state.movies.results
     return (
       <>
+      <Baaner></Baaner>
       { this.state.movies.length == 0 ?
                //////////////loader if movies not fetched////
            <div className="d-flex align-items-center">
@@ -77,8 +89,8 @@ export default class Movies extends Component {
                        <h5 className="card-title movies-title">{movieObj.original_title}</h5>
                        <p className="card-text movies-text">{movieObj.overview}</p>
                        <div className="button-area">
-                       <a href="#" className="btn btn-primary">Buy Now</a>
-                       <a href="#" className="btn btn-outline-primary">Add to Favourite</a>
+                       <a  className="btn btn-primary">Buy Now</a>
+                       <a  className="btn btn-outline-primary" onClick={()=>this.handleFavourite(movieObj)}>Add to Favourite</a>
                        </div>
                      </div>
                    </div>
